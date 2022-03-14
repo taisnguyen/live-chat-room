@@ -5,7 +5,7 @@ class RoomService {
 
     static createRoom(id) {
         // Check if room already exists
-        if (RoomRepository.getRoom(id)) return;
+        if (this.checkIfRoomExists(id)) return;
 
         // Create room
         const room = new Room(id);
@@ -13,7 +13,7 @@ class RoomService {
     }
 
     static checkIfRoomExists(id) {
-        return RoomRepository.getRoom(id) !== null;
+        return RoomRepository.getRoom(id) !== undefined;
     }
 
     /**

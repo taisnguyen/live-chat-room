@@ -4,6 +4,10 @@ module.exports = (app) => {
     // GET /login
     app.use("/login", require("./login"));
 
+    // chatroom page
+    // GET /chatroom
+    app.use("/chatroom", require("./chatroom"));
+
     // API
     // /api
     app.use("/api", require("./api"));

@@ -20,7 +20,7 @@ class LoginService {
             if (!loginViewModel.username.trim()) {
                 errors.push("Username is required.");
             }
-
+            
             // RoomId is required
             if (!loginViewModel.roomId) {
                 errors.push("Room Code is required.");
