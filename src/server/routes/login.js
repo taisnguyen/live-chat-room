@@ -1,10 +1,10 @@
 const LoginController = require("../../controllers/loginController");
-const MainAPIRouter = require("express").Router();
+const MainLoginRouter = require("express").Router();
 
 // GET /login
-MainAPIRouter.get("/", LoginController.getLoginPage);
+MainLoginRouter.get("/", LoginController.getLoginPage);
 
 // POST /login
-MainAPIRouter.post("/", LoginController.loginUser);
+MainLoginRouter.post("/", LoginController.loginUser);
 
-module.exports = MainAPIRouter;
+module.exports = MainLoginRouter;
