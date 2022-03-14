@@ -16,10 +16,10 @@ class UserRepository {
         this.users.set(user.id, user);
     }
 
-    static getNextId() {
-        return this.users.size + 1;
+    static deleteUser(id) {
+        this.users.delete(id);
     }
-    
+
 }
 
 module.exports = UserRepository;
