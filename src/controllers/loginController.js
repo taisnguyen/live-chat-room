@@ -8,7 +8,9 @@ const getLoginPage = (req, res) => {
 
 // POST /login
 const loginUser = async (req, res) => {
-    const loginViewModel = new LoginViewModel(req.body.username.trim(), req.body.roomId);
+    const username = req.body.username || "";
+    const roomId = req.body.roomId || "";
+    const loginViewModel = new LoginViewModel(username.trim(), roomId);
 
     // Validate loginViewModel
     const validationResponse = await LoginService.validateLoginRequest(loginViewModel); 
