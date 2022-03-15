@@ -4,16 +4,22 @@ const RoomRepository = require("../repositories/roomRepository");
 class RoomService {
 
     static createRoom(id) {
+        const idInt = parseInt(id);
+
         // Check if room already exists
-        if (this.checkIfRoomExists(id)) return;
+        if (this.checkIfRoomExists(idInt)) return;
 
         // Create room
-        const room = new Room(id);
+        const room = new Room(idInt);
         RoomRepository.addRoom(room);
     }
 
     static checkIfRoomExists(id) {
         return RoomRepository.getRoom(id) !== undefined;
+    }
+
+    static getAllRooms() {
+        return RoomRepository.getAllRooms();
     }
 
     /**

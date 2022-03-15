@@ -1,5 +1,8 @@
 const UserService = require("../services/userService");
 
+function updateUserList(io, roomId) {
+    io.to(roomId).emit("usersInRoom", { users: UserService.getAllUsersInRoom(roomId) });
+}
 
 module.exports = (server) => {
 
@@ -20,14 +23,12 @@ module.exports = (server) => {
             UserService.createUser(socket.id, username, roomId);
 
             // Update user lists
-            io.to(roomId).emit("usersInRoom", { users: UserService.getAllUsersInRoom(roomId) });
+            updateUserList(io, roomId);
         });
 
         socket.on("message", ({userId, message}) => {
             const user = UserService.getUser(userId);
             if (!user) return;
-
-            console.log(user);
 
             io.to(user.roomId).emit("message", { username: user.name, message });
         });
@@ -39,11 +40,12 @@ module.exports = (server) => {
             // Notify other users in room
             io.to(user.roomId).emit("userDisconnected", { username: user.name });
 
-            // Update user lists
-            io.to(user.roomId).emit("usersInRoom", { users: UserService.getAllUsersInRoom(user.roomId) });
-
             // Delete user
             UserService.deleteUser(socket.id);
+            
+            // Update user lists
+            updateUserList(io, user.roomId);
+
         });
     });
 

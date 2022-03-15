@@ -5,4 +5,4 @@ class LoginViewModel {
     }
 }
 
-module.exports = LoginViewModel
+module.exports = LoginViewModel;

@@ -8,6 +8,10 @@ class RoomRepository {
         return this.rooms.get(id);
     }
 
+    static getAllRooms() {
+        return Array.from(this.rooms.values());
+    }
+
     /**
      * Adds a room to the repository.
      * @param {Room} room
