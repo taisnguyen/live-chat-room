@@ -19,6 +19,10 @@ class RoomRepository {
     static addRoom(room) {
         this.rooms.set(room.id, room);
     }
+
+    static deleteRoom(id) {
+        this.rooms.delete(id);
+    }
     
 }
 

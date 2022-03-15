@@ -22,6 +22,10 @@ class RoomService {
         return RoomRepository.getAllRooms();
     }
 
+    static deleteRoom(id) {
+        RoomRepository.deleteRoom(id);
+    }
+
     /**
      * Returns a JSON representing the room given a room id.
      * @param {number} id

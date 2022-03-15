@@ -1,4 +1,5 @@
 const UserService = require("../services/userService");
+const RoomService = require("../services/roomService");
 
 function updateUserList(io, roomId) {
     io.to(roomId).emit("usersInRoom", { users: UserService.getAllUsersInRoom(roomId) });
@@ -45,6 +46,12 @@ module.exports = (server) => {
             
             // Update user lists
             updateUserList(io, user.roomId);
+
+            // Check if room if empty, if so then delete room
+            if (UserService.getAllUsersInRoom(user.roomId).length === 0) {
+                RoomService.deleteRoom(parseInt(user.roomId));
+                console.log('deleted');
+            }
 
         });
     });
