@@ -1,0 +1,159 @@
+<% 
+    let username = "";
+    let roomId = "";
+    if (typeof(viewModel) !== "undefined") {
+        roomId = viewModel.roomId;
+    }
+        
+%>
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Noto+Sans&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+        <style>
+            html, body {
+                height: 100%;
+                font-family: 'Noto Sans', sans-serif;
+                overflow: hidden;
+            }
+
+            .create-room-form-wrapper {
+                width: 280px;
+                min-width: 200px;
+                height: 244px;
+                border-radius: 0.25rem;
+                color: #54698d;
+                font-size: 12px;
+            }
+
+            .create-room-form-margin {
+                margin-top: 12px;
+            }
+
+            .form-input {
+                margin-top: 6px;
+                height: 43px;
+            }
+
+            .form-submit {
+                position: relative;
+                top: -8px;
+                left: 8px;
+                width: 236px;
+                height: 41px;
+                background-color: #18349c;
+                color: #ffffff;
+                font-size: 0.8125rem;
+            }
+
+            .form-submit:hover {
+                color: #ffffff;
+            }
+
+            .form-link-wrapper {
+                width: 236px;
+                transform: translateX(8px);
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin-top: 58px;
+            }
+
+            .form-link {
+                text-decoration: none;
+                color: #6276d2;
+            }
+
+            .error-list {
+                position: absolute;
+                left: 20px;
+                bottom: 62px;
+                color: #c51717;
+            }
+
+            hr.solid {
+                position: absolute;
+                top: 180px;
+                width: 236px;
+                transform: translateX(8px);
+                border-top: 1px solid #aaaaaa;
+            }
+
+            @media (max-width: 480px) {
+                .create-room-form-wrapper {
+                    top: 30%;
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    transition: 0.2s;
+                }
+
+                .form-submit {
+                    width: calc(100% - 16px);
+                }
+
+                .form-link-wrapper {
+                    width: calc(100% - 16px);
+                }
+
+                hr.solid {
+                    width: calc(100% - 40px);
+                }
+            }
+            
+        </style>
+    </head>
+
+    <body>
+            
+            <div class="container-fluid w-100" style="height: 95%;">
+                <div class="row h-100 justify-content-center align-items-center">
+                    <form class="create-room-form-wrapper card" action="/createRoom" method="post">
+
+                        <div class="create-room-form-margin"></div>
+
+                        <div class="form-group p-2">
+                            <label for="room-code">Room Code</label>
+                            <input class="form-input form-control shadow-none" id="room-id-input" type="text" name="roomId" value="<%= roomId %>" maxlength="5" placeholder="00000" autocomplete="off" style="width: 4.4rem;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        </div>
+                        
+                        <div class="form-group p-2"></div>
+                            <input class="form-submit btn" type="submit" value="Create">
+
+                            <div class="error-list">
+                                <% if (typeof(errorViewModel) !== "undefined") { %>
+                                    <% for (const error of errorViewModel.errors) { %>
+                                        <%= error %> 
+                                    <% } %>
+                                <% } %>
+                            </div>
+
+                            <hr class="solid">
+
+                            <div class="form-link-wrapper">
+                                <a class="form-link" href="/login">Go Back</a>
+                            </div>
+                            
+                        </div>
+
+                    </form>   
+
+                </div>
+            </div>
+
+        <script>
+            // Place caret at the end of the focused username text input
+            const usernameInput = document.getElementById("username-input");
+            usernameInput.setSelectionRange(usernameInput.value.length, usernameInput.value.length);
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+        <script src="/socket.io/socket.io.js"></script>
+    </body>
+</html>
